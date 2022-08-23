@@ -3,7 +3,7 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
@@ -12,6 +12,11 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
+    "paths": {
+      "@vueuse/core": ["./packages/core/index.ts"],
+      "@vueuse/core/*": ["./packages/core/*"],
+      "@vueuse/docs-utils": ["./packages/.vitepress/plugins/utils.ts"]
+    },
     "types": ["vite-plugin-pages/client"]
   },
   "include": [
@@ -19,6 +24,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "./typings/moment.custom.d.ts",
     "public"
   ],
   "exclude": ["dist", "node_modules"],
