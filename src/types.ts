@@ -1,10 +1,3 @@
-export interface Message {
-  title: string;
-  message: string;
-  recipient: string;
-  timestamp: Date;
-  checkbox: boolean;
-}
 export interface Origin {
   name: string;
   url: string;

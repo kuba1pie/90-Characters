@@ -13,7 +13,7 @@
           :class="{ error: !newMessage.title }"
         >
       </div>
-      <div class="form__message">
+      <div class="form__message flex-col">
         <label for="text">Message</label>
         <textarea
           v-model="newMessage.message"

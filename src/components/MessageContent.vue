@@ -10,12 +10,12 @@
       <div class="title">
         {{ messageData.title }}
       </div>
-      <div class="arrowButton">
-        <img
-          src="../assets/arrow.svg"
-          :class="{ rotate: showContent }"
-        >
-      </div>
+      <div
+        class="arrow arrowButton i-ant-design:arrow-down-outlined"
+        :verticalFlip="true"
+        :class="{ rotate: showContent }"
+      />
+      <div class="i-mdi-alarm text-orange-400" />
     </div>
     <Transition>
       <div
@@ -61,7 +61,7 @@ const props = defineProps<{
   messageData: Message
 }>()
 
-let recipient: Character 
+let recipient: Character
 if (store.charactersData) {
   let results: Character = store.charactersData.results
   recipient = results.find((character: { id: string; }) => character.id === props.messageData.recipient)
@@ -69,3 +69,9 @@ if (store.charactersData) {
 let showContent = ref(false)
 
 </script>
+<style lang="scss">
+.arrow {
+  width: 10px;
+  height: 1em;
+}
+</style>
