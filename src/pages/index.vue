@@ -10,3 +10,13 @@
 <script setup lang="ts">
 const store = useDefaultStore();
 </script>
+<style lang="scss">
+
+
+@media (max-width: 1000px) {
+  .text-10 {
+    font-size: 1.5rem;
+  }
+}
+
+</style>

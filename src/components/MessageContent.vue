@@ -74,6 +74,7 @@ let showContent = ref(false)
 
 .avatar {
   width: 80px;
+  height: 80px;
   border-radius: 40px;
 }
 </style>
