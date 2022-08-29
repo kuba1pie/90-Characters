@@ -1,14 +1,15 @@
 <template>
-  <div class="c-theEditor">
+  <div class="c-theEditor flex flex-col w-200">
     <h2>Send a new message</h2>
-    <form action="#">
+    <form
+      action="#"
+      class="flex flex-col"
+    >
       <div class="form__title">
         <label for="input">Title</label>
         <input
           v-model="newMessage.title"
           placeholder="Enter the title"
-          minlength="3"
-          maxlength="32"
           name="input"
           :class="{ error: !newMessage.title }"
         >
@@ -21,6 +22,7 @@
           placeholder="Enter the message here..."
           :class="{ error: !newMessage.message }"
           maxlength="256"
+          class="h-50"
         />
       </div>
       <div class="form__character">
@@ -47,40 +49,48 @@
           </option>
         </select>
       </div>
-      <div class="form__checkbox">
+      <div class="form__checkbox flex flex-row justify-between">
+        <label for="checkbox">Important</label>
         <input
           id="checkbox"
           v-model="newMessage.checkbox"
           type="checkbox"
           name="checkbox"
-          class="checkbox"
-          required
+          class="checkbox w-8"
         >
-        <label for="checkbox">I want to use InterGalaxy Quickpost™</label>
       </div>
       <div class="form__button">
         <button
           type="submit"
-          :class="{ active: isActive }"
-          :disabled="isActive"
+          :class="{ 'bg-red-500/20': isDisabled }"
+          :disabled="isDisabled"
+          class="c-tabButton bg-green-500/20 px-8 py-3 text-8 w-80 m-0 border-0"
           @click="onSubmitClick()"
         >
           Send
+        </button>
+        <button
+          type="submit"
+          class="c-tabButton bg-grey-500/20 px-8 py-3 text-8 w-80 m-0 my-10 border-0"
+          @click="store.activeTab = 'TheArchive'"
+        >
+          Go to Archive
         </button>
       </div>
     </form>
   </div>
 </template>
 
-<script setup lang="ts">import { Message } from '../types';
+<script setup lang="ts">
+import { Message } from '../types';
 
 const store = useDefaultStore();
 store.getCharacters();
-let newMessage: Message = reactive({ title: "", message: "", recipient: "", timestamp: new Date(0), checkbox: false });
+let newMessage: Message = reactive({ title: " Etiam dapibus nisl ligula, et interdum nisl laoreet quis.", message: " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mollis eleifend purus nec lacinia. Fusce mattis quis dolor at aliquet. Praesent rhoncus orci fringilla urna euismod finibus. Pellentesque nec accumsan diam. Aenean mauris nulla, auctor vitae feugiat gravida, efficitur nec metus. Etiam dapibus nisl ligula, et interdum nisl laoreet quis.", recipient: "", timestamp: new Date(Date.now()), checkbox: false });
 let archiveData: Message[] = []
 
-const isActive = computed(() => {
-  if (newMessage.title === "" || newMessage.message === "" || newMessage.recipient === "" || newMessage.checkbox === false) {
+const isDisabled = computed(() => {
+  if (newMessage.title === "" || newMessage.message === "" || newMessage.recipient === "") {
     return true
   }
   else {
@@ -91,17 +101,35 @@ const isActive = computed(() => {
 async function onSubmitClick() {
   if (window.localStorage.getItem('archiveData')) {
     archiveData = JSON.parse(window.localStorage.getItem('archiveData')!);
+    newMessage.timestamp = new Date(Date.now())
     archiveData.push(newMessage)
     window.localStorage.setItem('archiveData', (JSON.stringify(archiveData)));
   }
   else {
+    newMessage.timestamp = new Date(Date.now())
     archiveData.push(newMessage)
     window.localStorage.setItem('archiveData', (JSON.stringify(archiveData)));
   }
   newMessage.title = ""
   newMessage.message = ""
   newMessage.recipient = ""
-  newMessage.timestamp = new Date(Date.now())
   newMessage.checkbox = false
 }
 </script>
+<style lang="scss" scope>
+form > div {
+  display: flex;
+  flex-flow: column;
+  margin: 0.4em 0;
+
+  label {
+    margin-bottom: 0.3em;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 0.6em;
+  }
+}
+</style>

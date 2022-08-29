@@ -1,23 +1,20 @@
 <template>
-  <header class="c-theHeader">
-    <div class="header">
-      <div
-        class="pageLogo"
-        @click="onLogoClick"
-      >
-        <img src="../assets/vue.svg">
-      </div>
-      <nav class="nav">
-        <TabButton
-          v-for="button in buttons"
-          :key="button.component"
-          :tab-component="button.component"
-        >
-          {{ button.title }}
-        </TabButton>
-      </nav>
+  <header class="header">
+    <div
+      class="pageLogo m-6"
+      @click="onLogoClick"
+    >
+      <span class="border-5 border-blue-500/50 font-serif p-3">Messenger</span>
     </div>
-    <div class="header-bar" />
+    <nav class="nav flex justify-end">
+      <TabButton
+        v-for="button in buttons"
+        :key="button.component"
+        :tab-component="button.component"
+      >
+        {{ button.title }}
+      </TabButton>
+    </nav>
   </header>
 </template>
 
@@ -31,3 +28,13 @@ function onLogoClick() {
 }
 
 </script>
+<style lang="scss" scope>
+.header {
+  border-bottom: 2px solid #333c44;
+  width: 100vw;
+
+  .nav {
+    margin: 0;
+  }
+}
+</style>

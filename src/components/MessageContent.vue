@@ -1,17 +1,20 @@
 <template>
   <div
     v-if="recipient"
-    class="c-messageContent"
+    class="c-messageContent border-1 text-6 my-2 p-5"
   >
     <div
-      class="header"
+      class="head flex"
       @click="showContent = !showContent"
     >
-      <div class="title">
-        {{ messageData.title }}
+      <div
+        class="recipient text-8"
+        :class="{ 'text-orange-800/80': messageData.checkbox }"
+      >
+        {{ recipient.name }}
       </div>
       <div
-        class="arrow arrowButton i-ant-design:arrow-down-outlined"
+        class=" arrow text-black arrowButton i-ant-design:arrow-down-outlined"
         :verticalFlip="true"
         :class="{ rotate: showContent }"
       />
@@ -22,14 +25,14 @@
         v-if="showContent"
         class="content"
       >
-        <div class="details">
+        <div class="details flex my-4">
           <img
             :src="recipient.image"
             class="avatar"
           >
-          <div class="textInfo">
-            <div class="recipient">
-              Sent to: {{ recipient.name }}
+          <div class="textInfo mx-2 text-gray-600">
+            <div class="title">
+              Subject: {{ messageData.title }}
             </div>
             <div class="date">
               Date: {{ moment(messageData.timestamp).locale("pl").format('L') }}
@@ -37,15 +40,9 @@
             <div class="time">
               At: {{ moment(messageData.timestamp).locale("pl").format('LT') }}
             </div>
-            <div
-              v-if="0"
-              class="time"
-            >
-              At: I see what you did there
-            </div>
           </div>
         </div>
-        <div class="message">
+        <div class="message my-3">
           {{ messageData.message }}
         </div>
       </div>
@@ -73,5 +70,10 @@ let showContent = ref(false)
 .arrow {
   width: 10px;
   height: 1em;
+}
+
+.avatar {
+  width: 80px;
+  border-radius: 40px;
 }
 </style>
