@@ -3,7 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import Pages from "vite-plugin-pages";
-import Unocss from "unocss/vite";
+import UnoCSS from 'unocss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,8 +29,7 @@ export default defineConfig({
     Pages({
       dirs: [{ dir: "src/pages", baseRoute: "" }],
     }),
-    Unocss({
-      /* options */
-    }),
+    UnoCSS({}),
   ],
 });
+

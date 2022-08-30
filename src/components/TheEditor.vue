@@ -86,7 +86,7 @@ import { Message } from '../types';
 
 const store = useDefaultStore();
 store.getCharacters();
-let newMessage: Message = reactive({ title: " Etiam dapibus nisl ligula, et interdum nisl laoreet quis.", message: " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mollis eleifend purus nec lacinia. Fusce mattis quis dolor at aliquet. Praesent rhoncus orci fringilla urna euismod finibus. Pellentesque nec accumsan diam. Aenean mauris nulla, auctor vitae feugiat gravida, efficitur nec metus. Etiam dapibus nisl ligula, et interdum nisl laoreet quis.", recipient: "", timestamp: new Date(Date.now()), checkbox: false });
+let newMessage: Message = reactive({ title: import.meta.env.VITE_MESSAGE_TITLE, message: import.meta.env.VITE_MESSAGE_CONTENT, recipient: "", timestamp: new Date(Date.now()), checkbox: false });
 let archiveData: Message[] = []
 
 const isDisabled = computed(() => {
