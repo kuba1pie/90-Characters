@@ -6,7 +6,7 @@ useHead({
   title: 'Messenger',
   meta: [
     { name: 'description', content: 'App' },
-  ]
+  ],
 })
 </script>
 

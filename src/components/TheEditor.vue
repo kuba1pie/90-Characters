@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import type { Message } from '../types'
+
+const store = useDefaultStore()
+store.getCharacters()
+const newMessage: Message = reactive({ title: import.meta.env.VITE_MESSAGE_TITLE, message: import.meta.env.VITE_MESSAGE_CONTENT, recipient: '', timestamp: new Date(Date.now()), checkbox: false })
+let archiveData: Message[] = []
+
+const isDisabled = computed(() => {
+  if (newMessage.title === '' || newMessage.message === '' || newMessage.recipient === '')
+    return true
+
+  else
+    return false
+})
+
+async function onSubmitClick() {
+  if (window.localStorage.getItem('archiveData')) {
+    archiveData = JSON.parse(window.localStorage.getItem('archiveData')!)
+    newMessage.timestamp = new Date(Date.now())
+    archiveData.push(newMessage)
+    window.localStorage.setItem('archiveData', (JSON.stringify(archiveData)))
+  }
+  else {
+    newMessage.timestamp = new Date(Date.now())
+    archiveData.push(newMessage)
+    window.localStorage.setItem('archiveData', (JSON.stringify(archiveData)))
+  }
+  newMessage.title = ''
+  newMessage.message = ''
+  newMessage.recipient = ''
+  newMessage.checkbox = false
+}
+</script>
+
 <template>
   <div class="c-theEditor flex flex-col w-200">
     <h2>Send a new message</h2>
@@ -81,41 +116,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { Message } from '../types';
-
-const store = useDefaultStore();
-store.getCharacters();
-let newMessage: Message = reactive({ title: import.meta.env.VITE_MESSAGE_TITLE, message: import.meta.env.VITE_MESSAGE_CONTENT, recipient: "", timestamp: new Date(Date.now()), checkbox: false });
-let archiveData: Message[] = []
-
-const isDisabled = computed(() => {
-  if (newMessage.title === "" || newMessage.message === "" || newMessage.recipient === "") {
-    return true
-  }
-  else {
-    return false
-  }
-})
-
-async function onSubmitClick() {
-  if (window.localStorage.getItem('archiveData')) {
-    archiveData = JSON.parse(window.localStorage.getItem('archiveData')!);
-    newMessage.timestamp = new Date(Date.now())
-    archiveData.push(newMessage)
-    window.localStorage.setItem('archiveData', (JSON.stringify(archiveData)));
-  }
-  else {
-    newMessage.timestamp = new Date(Date.now())
-    archiveData.push(newMessage)
-    window.localStorage.setItem('archiveData', (JSON.stringify(archiveData)));
-  }
-  newMessage.title = ""
-  newMessage.message = ""
-  newMessage.recipient = ""
-  newMessage.checkbox = false
-}
-</script>
 <style lang="scss" scope>
 form > div {
   display: flex;

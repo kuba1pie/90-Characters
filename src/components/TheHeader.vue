@@ -1,3 +1,13 @@
+<script setup lang="ts">
+const store = useDefaultStore()
+
+const buttons = [{ component: 'TheEditor', title: 'New message' }, { component: 'TheArchive', title: 'Archive' }]
+
+function onLogoClick() {
+  store.changeActiveTab('TheEditor')
+}
+</script>
+
 <template>
   <header class="header">
     <div
@@ -18,16 +28,6 @@
   </header>
 </template>
 
-<script setup lang="ts">
-const store = useDefaultStore();
-
-const buttons = [{ "component": "TheEditor", "title": "New message" }, { "component": "TheArchive", "title": "Archive" }]
-
-function onLogoClick() {
-  store.changeActiveTab("TheEditor")
-}
-
-</script>
 <style lang="scss" scope>
 .header {
   border-bottom: 2px solid #333c44;

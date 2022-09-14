@@ -1,3 +1,27 @@
+<script setup lang="ts">
+import type { Message } from '../types'
+
+const store = useDefaultStore()
+
+function getLocalStorage() {
+  let archiveData: Message[] = []
+  if (window.localStorage.getItem('archiveData') !== '') {
+    try {
+      archiveData = JSON.parse(localStorage.getItem('archiveData')!) as Message[]
+      store.setArchive(archiveData)
+    }
+    catch (e) {
+
+    }
+  }
+  else {
+    archiveData = []
+  }
+}
+
+getLocalStorage()
+</script>
+
 <template>
   <div class="c-theArchive flex flex-col w-200">
     <h2>Message history</h2>
@@ -23,25 +47,3 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">import { Message } from '../types';
-
-const store = useDefaultStore();
-
-
-function getLocalStorage() {
-  let archiveData: Message[] = [];
-  if (window.localStorage.getItem('archiveData') !== "") {
-    try {
-      archiveData = JSON.parse(localStorage.getItem('archiveData')!) as Message[];
-      store.setArchive(archiveData)
-    } catch (e) {
-      return;
-    }
-  }
-  else {
-    archiveData = []
-  }
-}
-
-getLocalStorage()
-</script>

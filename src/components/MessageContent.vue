@@ -1,11 +1,27 @@
+<script setup lang="ts">
+import moment from 'moment'
+import type { Character, Message } from '../types'
+
+const props = defineProps<{
+  messageData: Message
+}>()
+const store = useDefaultStore()
+let recipient: Character
+if (store.charactersData) {
+  const results: Character = store.charactersData.results
+  recipient = results.find((character: { id: string }) => character.id === props.messageData.recipient)
+}
+const showContent = ref(false)
+</script>
+
 <template>
   <div v-if="recipient" class="c-messageContent border-1 text-6 my-2 p-5">
     <div class="head flex justify-between" @click="showContent = !showContent">
       <div class="recipient text-8" :class="{ 'text-orange-800/80': messageData.checkbox }">
-        {{  recipient.name  }}
+        {{ recipient.name }}
       </div>
       <div class="icon">
-        <i class="arrow" :class="{ up: showContent, down: !showContent }"></i>
+        <i class="arrow" :class="{ up: showContent, down: !showContent }" />
       </div>
     </div>
     <Transition>
@@ -14,40 +30,24 @@
           <img :src="recipient.image" class="avatar">
           <div class="textInfo mx-2 text-gray-600">
             <div class="title">
-              Subject: {{  messageData.title  }}
+              Subject: {{ messageData.title }}
             </div>
             <div class="date">
-              Date: {{  moment(messageData.timestamp).locale("pl").format('L')  }}
+              Date: {{ moment(messageData.timestamp).locale("pl").format('L') }}
             </div>
             <div class="time">
-              At: {{  moment(messageData.timestamp).locale("pl").format('LT')  }}
+              At: {{ moment(messageData.timestamp).locale("pl").format('LT') }}
             </div>
           </div>
         </div>
         <div class="message my-3">
-          {{  messageData.message  }}
+          {{ messageData.message }}
         </div>
       </div>
     </Transition>
   </div>
 </template>
-<script setup lang="ts">
-import { Character, Message } from '../types';
-import moment from "moment";
 
-const store = useDefaultStore();
-const props = defineProps<{
-  messageData: Message
-}>()
-
-let recipient: Character
-if (store.charactersData) {
-  let results: Character = store.charactersData.results
-  recipient = results.find((character: { id: string; }) => character.id === props.messageData.recipient)
-}
-let showContent = ref(false)
-
-</script>
 <style lang="scss">
 .avatar {
   width: 80px;
